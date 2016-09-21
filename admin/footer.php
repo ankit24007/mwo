@@ -7,11 +7,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
-                $('.message a').click(function(){
-   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-});
-            </script>
+
 </html>
 
 

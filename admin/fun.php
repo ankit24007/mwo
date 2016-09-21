@@ -1,14 +1,14 @@
 <?php
 function signup(){
     include '../database.php';
-    if(isset($_POST['signup'])){
-        $rname = filter_input(INPUT_POST, 'rname');
-        $remail = filter_input(INPUT_POST, 'remail');
-        $rpass = filter_input(INPUT_POST, 'rpass');
+    if(isset($_POST['admin_reg'])){
+        $name = filter_input(INPUT_POST, 'name');
+        $email = filter_input(INPUT_POST, 'email');
+        $pass = filter_input(INPUT_POST, 'password');
         date_default_timezone_set('Asia/Kolkata');
         $timestamp = date('Y-m-d h:i:s'); 
     
-        if(empty($rname) || empty($remail) || empty($rpass)){
+        if(empty($name) || empty($email) || empty($pass)){
                 ?>
            
             <div class="alert alert-danger" role="alert">
@@ -26,13 +26,12 @@ function signup(){
             
            
             }else{
-            $sql = "INSERT INTO users (uname, umail, upass, ustatus, cdate, udate)
-            VALUES ('$rname', '$remail', '$rpass', '1', '$timestamp','$timestamp')";
+            $sql = "INSERT INTO admin (username, email, password, created_at, updated_at)
+            VALUES ('$name', '$email', '$pass', '$timestamp','$timestamp')";
 
                 if($conn->query($sql) === TRUE) {
                     
-                    header('Location: welcome.php?id='.$rname);
-            
+                    $_SESSION['mwo_admin_user_name'] = $name;            
                 
                 } else {
                     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -43,7 +42,7 @@ function signup(){
 // sign up function ends here *******************************************************
 
 function loginchecker(){
-    if(empty($_SESSION['usname'])){
+    if(empty($_SESSION['mwo_admin_user_name'])){
         header('Location: login.php');
     }
 }
@@ -51,10 +50,10 @@ function loginchecker(){
 
 function loginhandler(){
     include '../database.php';
-    if(isset($_POST['login'])){
+    if(isset($_POST['admin_login'])){
         
-        $lname = mysql_real_escape_string(filter_input(INPUT_POST, 'lname'));
-        $lpass = mysql_real_escape_string(filter_input(INPUT_POST, 'lpass'));
+        $lname = mysql_real_escape_string(filter_input(INPUT_POST, 'email'));
+        $lpass = mysql_real_escape_string(filter_input(INPUT_POST, 'password'));
        
         if(empty($lname) || empty($lpass)){
                 ?>
@@ -75,7 +74,7 @@ function loginhandler(){
             
            
             }else{
-            $sql = "SELECT uname, ustatus FROM users WHERE (uname= '$lname' OR umail = '$lname') AND upass = '$lpass'";
+            $sql = "SELECT username, password FROM admin WHERE (email = '$lname') AND password = '$lpass'";
             
     
             $result = $conn->query($sql);
@@ -83,8 +82,8 @@ function loginhandler(){
             if ($result -> num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
-                    $_SESSION['usname'] = $row['uname'];
-                    $_SESSION['ustatus'] = $row['ustatus'];
+                    $_SESSION['mwo_admin_user_name'] = $row['username'];
+                    
                     header('Location: index.php');
                 }
             }else{
