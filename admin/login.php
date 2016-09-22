@@ -11,8 +11,11 @@ session_start();
 <link href="css/style.css" rel="stylesheet">
 <body>
 		<div class="login-page">
+         <h3 class="text-center">Movie World Online</h3>
             <div class="form">
-                
+               
+                <h4>Admin Panel</h4>
+                <br>
                 
                 
                 <form class="login-form" method="post" action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>>

@@ -60,17 +60,12 @@ function loginhandler(){
         if(empty($email) || empty($password)){
                 ?>
            
-        
-            <div class="alert alert-danger" role="alert">
-                <div class='alert-icon'>
-                            <i class='material-icons'>error_outline</i>
-                        </div>
-                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                            <span aria-hidden='true'><i class='material-icons'>clear</i></span>
-                        </button>
-                <span class="sr-only">Error:</span>
-                Error! Some fields are empty or wrong value. Please fill correct values.
-            </div>
+        <div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  Error! Some fields are empty or wrong value. Please fill correct values.
+</div>
+            
                   
        <?php
             
@@ -127,7 +122,7 @@ include 'nav.php';
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
+                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=');"></div>
                 <div class="carousel-caption">
                     <h2>Caption 1</h2>
                 </div>

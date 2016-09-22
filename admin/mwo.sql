@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2016 at 08:52 AM
+-- Generation Time: Sep 22, 2016 at 02:14 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -46,6 +46,32 @@ INSERT INTO `admin` (`id`, `username`, `email`, `password`, `created_at`, `updat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `movie`
+--
+
+CREATE TABLE `movie` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `genre` varchar(50) NOT NULL,
+  `actor` varchar(50) NOT NULL,
+  `banner` text NOT NULL,
+  `image` text NOT NULL,
+  `rating` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `movie`
+--
+
+INSERT INTO `movie` (`id`, `title`, `genre`, `actor`, `banner`, `image`, `rating`, `created_at`) VALUES
+(5, '', 'Action', '', 'mfiles/CCI30016.jpg', 'mfiles/CCI05016.jpg', 0, '2016-09-21 23:31:36'),
+(6, '', 'Action', '', 'mfiles/CCI05016_0001.jpg', 'mfiles/CCI05016_0002.jpg', 0, '2016-09-21 23:32:10'),
+(7, '', 'Action', '', 'mfiles/CCI05016_0003.jpg', 'mfiles/CCI15016.jpg', 0, '2016-09-21 23:47:04');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -81,6 +107,12 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `movie`
+--
+ALTER TABLE `movie`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -96,6 +128,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `movie`
+--
+ALTER TABLE `movie`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
