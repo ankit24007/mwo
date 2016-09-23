@@ -42,13 +42,13 @@ function loginchecker(){
   <div class="row">
     <div class="col-sm-3">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#">DashBoard</a></li>
+        <li class="active" id="wel"><a href="#" onclick="welcome()">DashBoard</a></li>
         <li id="mF"><a href="#" onclick="movieForm()">Add Movie</a></li>
         
       </ul> 
     </div>
-    <div class="col-sm-1"></div>
-    <div class="col-sm-4">
+    
+    <div class="col-sm-9">
       <?php
   include '../database.php';
 
@@ -56,6 +56,7 @@ function loginchecker(){
     $title = filter_input(INPUT_POST, 'title');
     $genre = filter_input(INPUT_POST, 'genre');
     $actor = filter_input(INPUT_POST, 'actor');
+    $description = filter_input(INPUT_POST, 'description');
     date_default_timezone_set('Asia/Kolkata');
         $timestamp = date('Y-m-d h:i:s'); 
     
@@ -172,26 +173,27 @@ function loginchecker(){
         
 
       } else{
-        if(move_uploaded_file($_FILES["banner"]["tmp_name"], $target_file_banner) && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file_image)){
+        $sql = "INSERT INTO movie(title, genre, actor, banner, image, rating, description, created_at) VALUES ('$title','$genre','$actor','$bannerfilepath','$imagefilepath','','$description','$timestamp')";
 
-          $sql = "INSERT INTO movie(title, genre, actor, banner, image, rating, created_at) VALUES ('$title','$genre','$actor','$bannerfilepath','$imagefilepath','','$timestamp')";
-          if($conn->query($sql) === TRUE) {
+        if($conn->query($sql) === TRUE  && move_uploaded_file($_FILES["banner"]["tmp_name"], $target_file_banner) && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file_image)) {
                     ?>
                       <div class="alert alert-success" role="alert">
-              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-              <span class="sr-only">Error:</span>
-              &nbsp; file uploaded successfully.
-          </div>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        &nbsp; file uploaded successfully.
+                      </div>
                     <?php
                                     
                 
                   } else {
                       echo "Error: " . $sql . "<br>" . $conn->error;
                   }
+       
+
           
-          } else {
-          echo "Sorry, there was an error uploading your file.";
-        }
+          
+          
+          
       }
     }
   }
@@ -201,8 +203,8 @@ function loginchecker(){
   
 
 ?>
-
-        <div id="movieForm"></div>
+        <div class="content"></div>
+        
     </div>
       
   </div>
