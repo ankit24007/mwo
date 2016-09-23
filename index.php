@@ -118,25 +118,44 @@ include 'nav.php';
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
+        <?php 
 
+            $sql = "SELECT * FROM movie order by id desc limit 10";
+            $result = $conn->query($sql);
+
+if($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $id[] = $row["id"];
+        $banner[] = $row["banner"];
+        $image[] = $row["image"];
+        $title[] = $row["title"];
+        $genre[] = $row["genre"];
+        $description[] = $row["description"];
+
+        
+    }
+}
+
+        ?>
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=');"></div>
+                <div class="fill" style="background-image:url(<?php echo $banner[0]; ?>);"></div>
                 <div class="carousel-caption">
-                    <h2>Caption 1</h2>
+                    <h2><?php echo $title[0]; ?></h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
+                <div class="fill" style="background-image:url(<?php echo $banner[1]; ?>);"></div>
                 <div class="carousel-caption">
-                    <h2>Caption 2</h2>
+                    <h2><?php echo $title[1]; ?></h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
+                <div class="fill" style="background-image:url(<?php echo $banner[2]; ?>);"></div>
                 <div class="carousel-caption">
-                    <h2>Caption 3</h2>
+                    <h2><?php echo $title[2]; ?></h2>
                 </div>
             </div>
         </div>
@@ -157,16 +176,15 @@ include 'nav.php';
             <div class="col-sm-3">
                 <ul class="list-group" style="padding-top:45px;">
                     <li class="list-group-item list-group active"><b>Top Movies</b></li>
-                    <li class="list-group-item list-group">Second item</li>
-                    <li class="list-group-item list-group">Third item</li>
-                    <li class="list-group-item list-group">Fourth item</li>
-                    <li class="list-group-item list-group">Second item</li>
-                    <li class="list-group-item list-group">Third item</li>
-                    <li class="list-group-item list-group">Fourth item</li>
-                    <li class="list-group-item list-group">Second item</li>
-                    <li class="list-group-item list-group">Third item</li>
-                    <li class="list-group-item list-group">Fourth item</li>
-                    <li class="list-group-item list-group">Fourth item</li>
+                    <?php
+                        for($i=0; $i<10; $i++){
+                           
+                            echo "<li class='list-group-item list-group'><a href='movie-details.php?mid=".$id[$i]."' class='btn-block'>". $title[$i]."</a></li>";
+                        
+                        }
+                    ?>
+
+                    
                 </ul>
             </div>
             
@@ -180,12 +198,12 @@ include 'nav.php';
             
             <div class="col-md-3 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/750x450" alt="">
+                    <img class="img-responsive" src=<?php echo $image[0]; ?> alt="">
                     <div class="caption">
-                        <h3>Movie Title<br>
-                            <small>Genre</small>
+                        <h3><?php echo $title[0]; ?><br>
+                            <small><?php echo $genre[0]; ?></small>
                         </h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste saepe et quisquam nesciunt maxime.</p>
+                        <p><?php echo $description[0]; ?></p>
                         
                         <button type="button" class="btn btn-danger">Book Now</button>
                     </div>
@@ -194,12 +212,12 @@ include 'nav.php';
 
             <div class="col-md-3 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/750x450" alt="">
+                    <img class="img-responsive" src=<?php echo $image[1]; ?> alt="">
                     <div class="caption">
-                        <h3>Movie Title<br>
-                            <small>Genre</small>
+                        <h3><?php echo $title[1]; ?><br>
+                            <small><?php echo $genre[1]; ?></small>
                         </h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste saepe et quisquam nesciunt maxime.</p>
+                        <p><?php echo $description[1]; ?></p>
                        
                         <button type="submit" class="btn btn-danger">Book Now</a>
                     </div>
@@ -208,12 +226,12 @@ include 'nav.php';
 
             <div class="col-md-3 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/750x450" alt="">
+                    <img class="img-responsive" src=<?php echo $image[2]; ?>  alt="">
                     <div class="caption">
-                        <h3>Movie Title<br>
-                            <small>Genre</small>
+                        <h3><?php echo $title[2]; ?><br>
+                            <small><?php echo $genre[2]; ?></small>
                         </h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste saepe et quisquam nesciunt maxime.</p>
+                        <p><?php echo $description[2]; ?></p>
                        
 
                         <button type="button" class="btn btn-danger">Book Now</button>

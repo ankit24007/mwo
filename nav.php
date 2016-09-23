@@ -16,20 +16,18 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-               
-                    <li>
-                        <a href="#">Movies</a>
-                    </li>
-                    <li>
-                        <a href="#">Songs</a>
-                    </li>
+                    
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="movies.php">Movies</a></li>
+                    <li><a href="#">Songs</a></li>
 <?php
         if( empty($_SESSION['usname'])){
             ?>
              
                         <!-- Trigger the modal with a button -->
-                        <li><a href="#" type="button" class="btn-default" data-toggle="modal" data-target="#myModal">Sign In</a>
-                    </li>
+                        <li><a href="#" type="button" class="btn-default" data-toggle="modal" data-target="#myModal">Sign In</a></li>
+                        <li><a href="signup.php">Register</a></li>
+                    
                     <?php
 
 
