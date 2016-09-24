@@ -17,12 +17,10 @@
 				<option value="Horror">Horror</option>
 				<option value="Fantasy">Fantasy</option>
 				<option value="Science Fiction">Science Fiction</option>
+				<option value="Mystery/Crime">Mystery/Crime</option>
 			</select>
 		</div>
-		<div class="form-group">
-			<label>Release Date</label>
-			<input type="date" name="date" class="form-control">
-		</div>
+		
 		<div class="form-group">
 			<label>Actors</label>
 			<input type="text" name="actor" class="form-control">

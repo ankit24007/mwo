@@ -12,6 +12,8 @@ function loginchecker(){
 
 	$user = $_SESSION['mwo_admin_user_name'];
 	include 'header.php';
+
+
 ?>
 
 	<nav class="navbar navbar-inverse">
@@ -27,7 +29,6 @@ function loginchecker(){
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $user; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="logout.php">Logout</a></li>
-            
           </ul>
         </li>
       
@@ -187,22 +188,12 @@ function loginchecker(){
                 
                   } else {
                       echo "Error: " . $sql . "<br>" . $conn->error;
-                  }
-       
-
-          
-          
-          
-          
+                  } 
       }
     }
   }
-  
-
-      
-  
-
 ?>
+
         <div class="content"></div>
         
     </div>
