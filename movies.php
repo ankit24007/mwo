@@ -38,13 +38,13 @@
     
                     $start_from = ($page-1) * 5; 
                 
-                $sql = "SELECT * FROM movie ORDER BY id desc LIMIT $start_from, 5";
+                $sql = "SELECT * FROM collection ORDER BY id desc LIMIT $start_from, 5";
                  $result = $conn->query($sql);
                         if ($result -> num_rows > 0) {
                             
                             
-                            // count products for pagination    
-                        $sqlb = "SELECT COUNT(id) FROM movie"; 
+                        // count products for pagination    
+                        $sqlb = "SELECT COUNT(id) FROM collection"; 
                         $resultb = $conn->query($sqlb);
                         $rowb = mysqli_fetch_row($resultb); 
                         $total_records = $rowb[0]; 

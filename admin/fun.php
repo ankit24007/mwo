@@ -1,14 +1,14 @@
 <?php
 function signup(){
-    include '../database.php';
-    if(isset($_POST['admin_reg'])){
-        $name = filter_input(INPUT_POST, 'name');
-        $email = filter_input(INPUT_POST, 'email');
-        $pass = filter_input(INPUT_POST, 'password');
+    include 'database.php';
+    if(isset($_POST['signup'])){
+        $rname = filter_input(INPUT_POST, 'rname');
+        $remail = filter_input(INPUT_POST, 'remail');
+        $rpass = filter_input(INPUT_POST, 'rpass');
         date_default_timezone_set('Asia/Kolkata');
         $timestamp = date('Y-m-d h:i:s'); 
     
-        if(empty($name) || empty($email) || empty($pass)){
+        if(empty($rname) || empty($remail) || empty($rpass)){
                 ?>
            
             <div class="alert alert-danger" role="alert">
@@ -23,17 +23,14 @@ function signup(){
             </div>
                   
        <?php
-            
-           
             }else{
             $sql = "INSERT INTO admin (username, email, password, created_at, updated_at)
-            VALUES ('$name', '$email', '$pass', '$timestamp','$timestamp')";
+            VALUES ('$rname', '$remail', '$rpass', '$timestamp','$timestamp')";
 
                 if($conn->query($sql) === TRUE) {
                     
-                    $_SESSION['mwo_admin_user_name'] = $name;            
-                
-                } else {
+                    header('Location: welcome.php?id='.$rname);
+            } else {
                     echo "Error: " . $sql . "<br>" . $conn->error;
                 }
             }
@@ -42,24 +39,22 @@ function signup(){
 // sign up function ends here *******************************************************
 
 function loginchecker(){
-    if(empty($_SESSION['mwo_admin_user_name'])){
+    if(empty($_SESSION['usname'])){
         header('Location: login.php');
     }
 }
 // login checker function ends here *******************************************************
 
 function loginhandler(){
-    include '../database.php';
-    if(isset($_POST['admin_login'])){
+    include 'database.php';
+    if(isset($_POST['login'])){
         
-        $lname = mysql_real_escape_string(filter_input(INPUT_POST, 'email'));
-        $lpass = mysql_real_escape_string(filter_input(INPUT_POST, 'password'));
+        $lname = mysql_real_escape_string(filter_input(INPUT_POST, 'lname'));
+        $lpass = mysql_real_escape_string(filter_input(INPUT_POST, 'lpass'));
        
         if(empty($lname) || empty($lpass)){
                 ?>
-           
-        
-            <div class="alert alert-danger" role="alert">
+           <div class="alert alert-danger" role="alert">
                 <div class='alert-icon'>
                             <i class='material-icons'>error_outline</i>
                         </div>
@@ -70,36 +65,27 @@ function loginhandler(){
                 Error! Some fields are empty or wrong value. Please fill correct values.
             </div>
                   
-       <?php
-            
-           
-            }else{
-            $sql = "SELECT username, password FROM admin WHERE (email = '$lname') AND password = '$lpass'";
-            
-    
-            $result = $conn->query($sql);
-
-            if ($result -> num_rows > 0) {
-                // output data of each row
-                while($row = $result->fetch_assoc()) {
-                    $_SESSION['mwo_admin_user_name'] = $row['username'];
-                    
-                    header('Location: index.php');
-                }
-            }else{
-                 
-                echo "<div class='alert alert-danger'>
-                    
-                        <div class='alert-icon'>
-                            <i class='material-icons'>error_outline</i>
-                        </div>
-                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                            <span aria-hidden='true'><i class='material-icons'>clear</i></span>
-                        </button>
-                        <b>Error Alert:</b> The username and password you entered did not match our records. Please try again.
-                    
+<?php
+    }else{
+    $sql = "SELECT username, email FROM admin WHERE (email= '$lname' OR username = '$lname') AND password = '$lpass'";
+    $result = $conn->query($sql);
+    if ($result -> num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                $_SESSION['usname'] = $row['username'];
+                $_SESSION['ustatus'] = $row['ustatus'];
+                header('Location: index.php');
+            }
+        }else{
+            echo "<div class='alert alert-danger'>
+                    <div class='alert-icon'>
+                        <i class='material-icons'>error_outline</i>
+                    </div>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'><i class='material-icons'>clear</i></span>
+                    </button>
+                <b>Error Alert:</b> The username and password you entered did not match our records. Please try again.
                 </div>";
-                
             } 
         }
     }

@@ -15,7 +15,7 @@
         if (isset($_GET["mid"])) {
                 $mid  = $_GET["mid"];
             }
-            $sql = "SELECT * FROM movie where id='$mid'";
+            $sql = "SELECT * FROM collection where id='$mid'";
             $result = $conn->query($sql);
 
             if($result->num_rows > 0) {
@@ -26,6 +26,8 @@
                     $image = $row["image"];
                     $title = $row["title"];
                     $genre = $row["genre"];
+                    $director = $row["director"];
+                    $actor = $row["actor"];
                     $description = $row["description"];
 
                     
@@ -88,45 +90,62 @@
                 <h3><?php echo $title; ?></h3>
                 <p><?php echo $description; ?></p>
                 <h3>Movie Details</h3>
-                <ul>
-                    <li>Lorem Ipsum</li>
-                    <li>Dolor Sit Amet</li>
-                    <li>Consectetur</li>
-                    <li>Adipiscing Elit</li>
-                </ul>
+                
+                    
+                    <p>Director: <?php echo $director; ?></p>
+                   <p>Actor: <?php echo $actor; ?></p>
+                    
+                    <a class="btn btn-danger" href="portfolio-item.html">Book Now</i></a>
+               
             </div>
 
         </div>
         <!-- /.row -->
 
-        <!-- Related Projects Row -->
+<?php
+$sqlb = "SELECT * FROM collection";
+            $resultb = $conn->query($sqlb);
+
+            if($resultb->num_rows > 0) {
+                // output data of each row
+                while($rowb = $resultb->fetch_assoc()) {
+                    //echo "id: " . $row["id"]. " - Name: " . $row["title"]. " " . $row["genre"]. "<br>";
+                    $bannerb[] = $rowb["banner"];
+                    
+
+                    
+                }
+            }
+
+            ?>
+        <!-- Related Movies Row -->
         <div class="row">
 
             <div class="col-lg-12">
-                <h3 class="page-header">Related Projects</h3>
+                <h3 class="page-header">Related Movies</h3>
             </div>
 
             <div class="col-sm-3 col-xs-6">
                 <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                    <img class="img-responsive img-hover img-related" src="<?php echo $bannerb[5]; ?>" alt="">
                 </a>
             </div>
 
             <div class="col-sm-3 col-xs-6">
                 <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                    <img class="img-responsive img-hover img-related" src="<?php echo $bannerb[3]; ?>" alt="">
                 </a>
             </div>
 
             <div class="col-sm-3 col-xs-6">
                 <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                    <img class="img-responsive img-hover img-related" src="<?php echo $bannerb[8]; ?>" alt="">
                 </a>
             </div>
 
             <div class="col-sm-3 col-xs-6">
                 <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                    <img class="img-responsive img-hover img-related" src="<?php echo $bannerb[7]; ?>" alt="">
                 </a>
             </div>
 
@@ -139,7 +158,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p class="text-center">Copyright 2016 &copy; Movie World Online. All Rights Reserved.</p>
                 </div>
             </div>
         </footer>

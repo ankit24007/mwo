@@ -11,6 +11,7 @@ function signup(){
         $reg_name = filter_input(INPUT_POST, 'name');
         $reg_email = filter_input(INPUT_POST, 'email');
         $reg_password = filter_input(INPUT_POST, 'password');
+        $reg_password = md5($reg_password);
         date_default_timezone_set('Asia/Kolkata');
         $timestamp = date('Y-m-d h:i:s'); 
     
@@ -55,8 +56,10 @@ function loginhandler(){
     if(isset($_POST['login'])){
         
         $email = mysql_real_escape_string(filter_input(INPUT_POST, 'email'));
-        $password = mysql_real_escape_string(filter_input(INPUT_POST, 'password'));
-       
+        $password = filter_input(INPUT_POST, 'password');
+        echo $password;
+       $password = md5($password);
+       echo $password;
         if(empty($email) || empty($password)){
                 ?>
            
@@ -120,7 +123,7 @@ include 'nav.php';
         </ol>
         <?php 
 
-            $sql = "SELECT * FROM movie order by id desc limit 10";
+            $sql = "SELECT * FROM collection order by id desc limit 10";
             $result = $conn->query($sql);
 
 if($result->num_rows > 0) {
